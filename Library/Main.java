@@ -20,14 +20,20 @@ public class Main {
             num= sc.nextInt();
 
             switch(num){
-                case 0: break;
-                case 1: login();
-                        break;
-                case 2: newUser();
-                        break;
-                default: System.out.println("Error!");
+                case 0:
+                    break;
+                case 1:
+                    login();
+                    break;
+                case 2:
+                    newUser();
+                    break;
+                default:
+                    System.out.println("Error!");
+                    break;
             }
         }while(num!=0);
+        sc.close();
         
         
 

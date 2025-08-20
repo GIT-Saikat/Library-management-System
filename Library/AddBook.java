@@ -9,7 +9,14 @@ public class AddBook implements IOOperation{
         Scanner sc = new Scanner(System.in);
         Book book = new Book();
         System.out.println("Enter book name: ");
-        book.setName(sc.next());
+        String name = sc.next();
+        if(database.getBook(name)>-1){
+            System.out.println("There is a book with this name");
+            return;
+        }else{
+            book.setName(sc.next());
+        }
+    
         System.out.println("Enter book author: ");
         book.setAuthor(sc.next());
         System.out.println("Enter book publisher: ");
@@ -22,8 +29,10 @@ public class AddBook implements IOOperation{
         book.setPrice(sc.nextDouble());
         System.out.println("Enter borrowing copies: ");
         book.setBrwCopies(sc.nextInt());
-        sc.close();
         database.AddBook(book);
-        System.out.println("Book added Successfully!!!");
+        System.out.println("Book added Successfully!!!\n");
+
+        user.menu(database, user);
+        sc.close();
     }
 }

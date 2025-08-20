@@ -32,6 +32,7 @@ public Database() {
             booksfile.createNewFile();
         }
         getUsers();
+        getBooks();
     } catch (IOException e) {
         e.printStackTrace(); 
     }
@@ -171,17 +172,54 @@ public Database() {
         }
     }
 
-        public Book parseBook(String s){
+    public Book parseBook(String s){
         String[] a = s.split("<N/>");
         Book book = new Book();
+
+        int qty = 0;
+        int brwCopies = 0;
+        // Check if the string is a valid number before parsing
+        try {
+            if (a.length > 4) { // Check if index 4 exists
+                qty = Integer.parseInt(a[4]);
+            }
+            if (a.length > 6) { // Check if index 6 exists
+                brwCopies = Integer.parseInt(a[6]);
+            }
+        } catch (NumberFormatException e) {
+            // Print a warning but don't crash
+            System.err.println("Warning: Found invalid number format for a book. Defaulting to 0.");
+        }
+
+
         book.setName(a[0]);
         book.setAuthor(a[1]);
         book.setPublisher(a[2]);
         book.setAddress(a[3]);
-        book.setQty(Integer.parseInt(a[4]));
+        book.setQty(qty);
         book.setPrice(Double.parseDouble(a[5]));
-        book.setBrwCopies(Integer.parseInt(a[6]));
+        book.setBrwCopies(brwCopies);
         return book;
+    }
+
+    public ArrayList<Book> getAllBooks(){
+        return books;
+    }
+
+    public int getBook(String bookname){
+        int i = -1;
+        for(Book bk:books){
+            if(bk.getName().matches(bookname)){
+                i=books.indexOf(bk);
+            }
+        }
+        return i;
+    }
+
+    public void deleteBook(int i){
+        books.remove(i);
+        bookNames.remove(i);
+        saveBooks();
     }
 
 }
