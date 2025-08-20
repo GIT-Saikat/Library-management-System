@@ -1,0 +1,1 @@
+Book1<N/>Author1<N/>Pub1<N/>100<N/>null<N/>5<N/>2000.0<N/>2<NewUser/>
